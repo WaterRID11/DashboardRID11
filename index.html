@@ -235,7 +235,7 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
   <div class="wd-side" id="side-west" data-side-panel="west">
   <header id="top">
     <h1 class="wd-title">ผังการระบายน้ำฝั่งตะวันตก</h1>
-    <p class="wd-lede" data-read lang="th">ระบายน้ำออกจากพื้นที่รวม <b class="dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_total" data-dec="2">—</b> ล้าน ลบ.ม. โดย <b class="dash-skeleton" data-draw="val" data-source="tc_share">—</b>% ลงแม่น้ำท่าจีน จุดที่ระบายมากที่สุดคือ <b class="dash-skeleton" data-draw="val" data-source="top_station" data-field="name" data-row="0">—</b> ที่ <b class="dash-skeleton" data-draw="val" data-source="top_station" data-field="cms" data-row="0">—</b> ลบ.ม./วินาที</p>
+    <p class="wd-lede" data-read lang="th">ระบายน้ำออกจากพื้นที่รวม <b class="dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_total" data-dec="2">—</b> ล้าน ลบ.ม. โดย <b class="dash-skeleton" data-draw="val" data-source="tc_share">—</b>% ลงแม่น้ำท่าจีน</p>
   </header>
 
   <section id="kpis" class="wd-kpis">
@@ -243,18 +243,21 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
       <span class="wd-kpi-label">ระบายรวมรายวัน</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_total" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม.</span>
+      <span class="wd-kpi-delta" data-draw="wdelta" data-source="daily day_info" data-k="s_daily_total"></span>
       <span class="wd-kpi-sub">เทียบเท่า <span class="dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_total_cms">—</span> ลบ.ม./วินาที</span>
     </div>
     <div class="wd-card wd-kpi" id="kpi-tc" style="--wd-accent:var(--wd-tc)">
       <span class="wd-kpi-label">ลงแม่น้ำท่าจีน</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_tc" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="wdelta" data-source="daily day_info" data-k="s_daily_tc"></span>
       <span class="wd-kpi-sub">≈ <span class="dash-skeleton" data-draw="val" data-source="river_cap" data-field="cms_today" data-where="river=tc">—</span> ลบ.ม./วินาที</span>
     </div>
     <div class="wd-card wd-kpi" id="kpi-cp" style="--wd-accent:var(--wd-cp)">
       <span class="wd-kpi-label">ลงแม่น้ำเจ้าพระยา</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="summary" data-field="value" data-where="key=daily_cp" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="wdelta" data-source="daily day_info" data-k="s_daily_cp"></span>
       <span class="wd-kpi-sub">≈ <span class="dash-skeleton" data-draw="val" data-source="river_cap" data-field="cms_today" data-where="river=cp">—</span> ลบ.ม./วินาที</span>
     </div>
     <div class="wd-card wd-kpi" id="kpi-cum" style="--wd-accent:var(--color-fg-muted)">
@@ -275,6 +278,7 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
     <a class="wd-chip" href="#sec-tc" data-go="sec-tc"><i style="background:var(--wd-tc)"></i>ฝั่งแม่น้ำท่าจีน</a>
     <a class="wd-chip" href="#sec-cp" data-go="sec-cp"><i style="background:var(--wd-cp)"></i>ฝั่งแม่น้ำเจ้าพระยา</a>
     <a class="wd-chip" href="#sec-trend" data-go="sec-trend">แนวโน้มย้อนหลัง</a>
+    <a class="wd-chip" href="#sec-cmp" data-go="sec-cmp">เปรียบเทียบวันที่</a>
     <a class="wd-chip" href="#maps" data-open-maps="w">แผนผังการระบายน้ำ ↗</a>
     <a class="wd-chip" href="#sec-canals" data-go="sec-canals">คลองสายหลัก</a>
     <a class="wd-chip" href="#sec-sum" data-go="sec-sum">สรุปยอดสะสม</a>
@@ -364,6 +368,32 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
     </div>
   </section>
 
+  <section class="wd-sec" id="sec-cmp">
+    <div class="wd-sec-head"><h2>เปรียบเทียบ</h2><p>ปริมาณระบายลงแม่น้ำท่าจีนและเจ้าพระยา (ล้าน ลบ.ม./วัน) เทียบวันที่เลือกด้านบนกับวันอื่น และกับช่วงเดียวกันของปีก่อน · ▲ มากขึ้น ▼ น้อยลง</p></div>
+    <div class="wd-cmp-grid">
+      <div class="wd-card">
+        <h3 class="wd-h3">เทียบกับวันที่</h3>
+        <div class="wd-cmp-ctl" role="group" aria-label="เลือกวันที่เทียบ">
+          <button type="button" data-wcmp-mode="d1">เมื่อวาน</button>
+          <button type="button" data-wcmp-mode="d7" class="is-on">7 วันก่อน</button>
+          <button type="button" data-wcmp-mode="d30">30 วันก่อน</button>
+          <button type="button" data-wcmp-mode="y1">วันเดียวกันปีก่อน</button>
+          <input type="date" data-wcmp-date aria-label="เลือกวันที่เทียบเอง">
+        </div>
+        <div data-draw="wcmp" data-source="daily day_info"></div>
+      </div>
+      <div class="wd-card wd-yoy-card">
+        <h3 class="wd-h3">ช่วงเดียวกันของปีก่อน</h3>
+        <div class="wd-cmp-ctl" role="group" aria-label="ช่วงเวลา">
+          <button type="button" data-wyoy-win="7">7 วัน</button>
+          <button type="button" data-wyoy-win="30" class="is-on">30 วัน</button>
+          <button type="button" data-wyoy-win="90">90 วัน</button>
+        </div>
+        <div data-draw="wyoy" data-source="daily day_info"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="wd-sec" id="sec-canals">
     <div class="wd-sec-head"><h2>คลองสายหลัก</h2><p>เรียงจากเหนือลงใต้ · ซ้าย = ลงท่าจีน, ขวา = ลงเจ้าพระยา (ลบ.ม./วินาที)</p></div>
     <div class="wd-canals" data-draw="canals" data-source="canals canal_flows gates inflows stations parts_day"></div>
@@ -413,7 +443,7 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
   <header id="e-top">
     <h1 class="wd-title">ผังการระบายน้ำฝั่งตะวันออก</h1>
     <p class="wd-daynote">ข้อมูลวันที่ <b class="dash-skeleton" data-draw="edayname" data-source="e_day_info" data-field="date" data-row="0">—</b> · ค่าติดลบหมายถึงรับน้ำเข้าพื้นที่</p>
-    <p class="wd-lede" data-read lang="th">ระบายน้ำออกจากพื้นที่รวม <b class="dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_total" data-dec="2">—</b> ล้าน ลบ.ม. เฉลี่ย <b class="dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_total_cms">—</b> ลบ.ม./วินาที จุดที่ระบายมากที่สุดคือ <b class="dash-skeleton" data-draw="val" data-source="e_top" data-field="name" data-row="0">—</b> ที่ <b class="dash-skeleton" data-draw="val" data-source="e_top" data-field="cms" data-row="0">—</b> ลบ.ม./วินาที</p>
+    <p class="wd-lede" data-read lang="th">ระบายน้ำออกจากพื้นที่รวม <b class="dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_total" data-dec="2">—</b> ล้าน ลบ.ม. เฉลี่ย <b class="dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_total_cms">—</b> ลบ.ม./วินาที</p>
   </header>
 
   <section id="e-kpis" class="wd-kpis">
@@ -421,26 +451,31 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
       <span class="wd-kpi-label">ระบายรวมรายวัน</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_total" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม.</span>
+      <span class="wd-kpi-delta" data-draw="edelta" data-source="e_daily e_day_info" data-k="s_daily_total"></span>
     </div>
     <div class="wd-card wd-kpi" id="e-kpi-nk" style="--wd-accent:var(--we-nk)">
       <span class="wd-kpi-label">ลงแม่น้ำนครนายก</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_nk" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="edelta" data-source="e_daily e_day_info" data-k="s_daily_nk"></span>
     </div>
     <div class="wd-card wd-kpi" id="e-kpi-cp" style="--wd-accent:var(--we-cp)">
       <span class="wd-kpi-label">ลงแม่น้ำเจ้าพระยา</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_cp" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="edelta" data-source="e_daily e_day_info" data-k="s_daily_cp"></span>
     </div>
     <div class="wd-card wd-kpi" id="e-kpi-bp" style="--wd-accent:var(--we-bp)">
       <span class="wd-kpi-label">ลงแม่น้ำบางปะกง</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_bp" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="edelta" data-source="e_daily e_day_info" data-k="s_daily_bp"></span>
     </div>
     <div class="wd-card wd-kpi" id="e-kpi-gulf" style="--wd-accent:var(--we-gulf)">
       <span class="wd-kpi-label">ลงอ่าวไทย</span>
       <span class="wd-kpi-num dash-skeleton" data-draw="val" data-source="e_summary" data-field="value" data-where="key=daily_gulf" data-dec="2">—</span>
       <span class="wd-kpi-unit">ล้าน ลบ.ม./วัน</span>
+      <span class="wd-kpi-delta" data-draw="edelta" data-source="e_daily e_day_info" data-k="s_daily_gulf"></span>
     </div>
     <div class="wd-card wd-kpi" id="e-kpi-cum" style="--wd-accent:var(--color-fg-muted)">
       <span class="wd-kpi-label">สะสมตั้งแต่ 1 ส.ค. 69</span>
@@ -453,6 +488,7 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
     <a class="wd-chip" href="#e-search" data-ego="e-search">🔎 ค้นหา</a>
     <a class="wd-chip" href="#e-dest" data-ego="e-dest">ปลายทางการระบาย</a>
     <a class="wd-chip" href="#e-trend" data-ego="e-trend">แนวโน้มย้อนหลัง</a>
+    <a class="wd-chip" href="#e-cmp" data-ego="e-cmp">เปรียบเทียบวันที่</a>
     <a class="wd-chip" href="#maps" data-open-maps="e">แผนผังการระบายน้ำ ↗</a>
     <a class="wd-chip" href="#e-canals" data-ego="e-canals">คลองสายหลัก</a>
     <a class="wd-chip" href="#e-proj" data-ego="e-proj">รายโครงการ</a>
@@ -512,6 +548,61 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
         </div>
       </div>
       <div class="wd-trend" data-draw="etrend" data-source="e_daily e_day_info"></div>
+    </div>
+  </section>
+
+  <section class="wd-sec" id="e-cmp">
+  <style>
+  .wd-kpi-delta{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:var(--cds-font-size-caption);font-variant-numeric:tabular-nums;margin-top:2px}
+  .wd-dl{white-space:nowrap;font-weight:600}
+  .wd-dl small{font-weight:400;color:var(--color-fg-muted)}
+  .wd-dl.is-up{color:var(--we-nk)} .wd-dl.is-down{color:var(--we-cp)} .wd-dl.is-flat,.wd-dl.is-na{color:var(--color-fg-muted);font-weight:400}
+  .wd-cmp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--cds-gap-md)}
+  .wd-cmp-ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:var(--cds-gap-sm)}
+  .wd-cmp-ctl button{border:1px solid var(--color-border-line);background:var(--color-panel);color:var(--color-fg);border-radius:999px;padding:6px 12px;font:inherit;font-size:var(--cds-font-size-caption);cursor:pointer}
+  .wd-cmp-ctl button.is-on{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+  .wd-cmp-ctl input{border:1px solid var(--color-border-line);background:var(--color-panel);color:var(--color-fg);border-radius:8px;height:32px;padding:0 8px;font:inherit;font-size:15px}
+  .wd-cmp-head{margin:0 0 6px;font-size:var(--cds-font-size-body)}
+  .wd-cmp-note{margin:4px 0;font-size:var(--cds-font-size-caption);color:var(--color-warn)}
+  .wd-cmp-tbl{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-body);font-variant-numeric:tabular-nums}
+  .wd-cmp-tbl th,.wd-cmp-tbl td{padding:6px 6px;border-bottom:1px solid var(--color-border-line);text-align:right;white-space:nowrap}
+  .wd-cmp-tbl th[scope=row],.wd-cmp-tbl thead th:first-child{text-align:left;white-space:normal;font-weight:400}
+  .wd-cmp-tbl th small{display:none}
+  .wd-yoy-riv{margin-top:var(--cds-gap-md)}
+  .wd-cmp-tbl thead th{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);font-weight:400}
+  .wd-cmp-tbl .wd-pct{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+  .wd-cmp-sub{margin:var(--cds-gap-md) 0 4px;font-size:var(--cds-font-size-body);font-weight:var(--cds-font-weight-medium)}
+  .wd-cmp-list{list-style:none;margin:0;padding:0}
+  .wd-cmp-list li{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:5px 0;border-bottom:1px solid var(--color-border-line);font-size:var(--cds-font-size-body);font-variant-numeric:tabular-nums}
+  .wd-cmp-v{color:var(--color-fg-muted)}
+  .wd-yoy-card{position:relative}
+  .wd-yoy-svg{display:block;max-width:100%;margin-top:6px}
+  .wd-legend i.is-dash{background:none;border-top:2px dashed var(--cds-chart-axis);height:0;width:18px;display:inline-block;vertical-align:middle;margin-right:6px}
+  .wd-yoy-u{color:var(--color-fg-muted)}
+  @media (max-width:520px){.wd-cmp-tbl{font-size:14px}.wd-cmp-tbl th,.wd-cmp-tbl td{padding:5px 3px}.wd-cmp-tbl th small{display:none}.wd-cmp-tbl .wd-pct,.wd-cmp-tbl thead th:last-child{display:none}.wd-cmp-list li{grid-template-columns:1fr auto;}.wd-cmp-list .wd-cmp-v{grid-column:1;grid-row:2;font-size:13px}.wd-cmp-list .wd-dl{grid-row:1/3;align-self:center}}
+  </style>
+    <div class="wd-sec-head"><h2>เปรียบเทียบ</h2><p>ปริมาณระบายลงแม่น้ำและอ่าวไทย (ล้าน ลบ.ม./วัน) เทียบวันที่เลือกด้านบนกับวันอื่น และกับช่วงเดียวกันของปีก่อน · ▲ มากขึ้น ▼ น้อยลง · ค่าติดลบคือรับน้ำเข้าพื้นที่</p></div>
+    <div class="wd-cmp-grid">
+      <div class="wd-card">
+        <h3 class="wd-h3">เทียบกับวันที่</h3>
+        <div class="wd-cmp-ctl" role="group" aria-label="เลือกวันที่เทียบ">
+          <button type="button" data-ecmp-mode="d1">เมื่อวาน</button>
+          <button type="button" data-ecmp-mode="d7" class="is-on">7 วันก่อน</button>
+          <button type="button" data-ecmp-mode="d30">30 วันก่อน</button>
+          <button type="button" data-ecmp-mode="y1">วันเดียวกันปีก่อน</button>
+          <input type="date" data-ecmp-date aria-label="เลือกวันที่เทียบเอง">
+        </div>
+        <div data-draw="ecmp" data-source="e_daily e_day_info"></div>
+      </div>
+      <div class="wd-card wd-yoy-card">
+        <h3 class="wd-h3">ช่วงเดียวกันของปีก่อน</h3>
+        <div class="wd-cmp-ctl" role="group" aria-label="ช่วงเวลา">
+          <button type="button" data-eyoy-win="7">7 วัน</button>
+          <button type="button" data-eyoy-win="30" class="is-on">30 วัน</button>
+          <button type="button" data-eyoy-win="90">90 วัน</button>
+        </div>
+        <div data-draw="eyoy" data-source="e_daily e_day_info"></div>
+      </div>
     </div>
   </section>
 
@@ -796,7 +887,7 @@ body{padding:20px 16px 48px;font-family:var(--font-anthropic-sans);-webkit-text-
 
   // วาดใหม่เมื่อสลับฝั่งหรือเปลี่ยนขนาดจอ
   document.addEventListener('DOMContentLoaded', () => {
-    const mo = new MutationObserver(schedule);
+    const mo = new MutationObserver(schedule); schedule();
     document.querySelectorAll('[data-side-panel]').forEach((p) => mo.observe(p, { attributes: true, attributeFilter: ['hidden'] }));
   });
   let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(schedule, 150); });
@@ -1575,6 +1666,190 @@ dash.onData(() => {
 </script>
 <script>
 dash.draw('enet', { mount: (el) => { const svg = d3.select(el).append('svg').attr('class', 'wd-net-svg').attr('role', 'img') .attr('aria-label', 'แผนผังคลอง ประตูระบายน้ำ และสถานีสูบฝั่งตะวันออก ซ้ายลงแม่น้ำเจ้าพระยา ขวาลงแม่น้ำนครนายกและบางปะกง ล่างลงอ่าวไทย'); const tip = d3.select(el).append('div').attr('class', 'wd-tip').property('hidden', true); const made = { svg, tip, t: d3.zoomIdentity }; made.zoom = d3.zoom().scaleExtent([1, 5]) .filter((ev) => (ev.type === 'wheel' ? ev.ctrlKey || ev.metaKey : true) && (ev.type !== 'touchstart' || ev.touches.length > 1 || made.t.k > 1) && !ev.button) .on('zoom', (ev) => { made.t = ev.transform; if (made.g) made.g.attr('transform', ev.transform); svg.style('touch-action', made.t.k > 1 ? 'none' : 'pan-x pan-y'); tip.property('hidden', true); }); svg.call(made.zoom).style('touch-action', 'pan-x pan-y'); const card = el.closest('.wd-card') || el.parentElement; if (card) card.querySelectorAll('[data-ezoom]').forEach((b) => { b.addEventListener('click', () => { const a = b.getAttribute('data-ezoom'); if (a === 'in') svg.transition().duration(250).call(made.zoom.scaleBy, 1.6); else if (a === 'out') svg.transition().duration(250).call(made.zoom.scaleBy, 1 / 1.6); else svg.transition().duration(250).call(made.zoom.transform, d3.zoomIdentity); }); }); return made; }, update: (el, m) => { const Cn = dash.data('e_canals'), G = dash.data('e_gates'), I = dash.data('e_inflows'), L = dash.data('e_links'), S = dash.data('e_stations'); const all = [Cn, G, I, L, S]; if (all.some((x) => x.status === 'loading')) return; m.svg.selectAll('*').remove(); m.tip.property('hidden', true); el.querySelectorAll('.wd-err').forEach((n) => n.remove()); if (all.some((x) => x.status !== 'ok')) { const e = document.createElement('p'); e.className = 'wd-err'; e.textContent = 'โหลดแผนผังไม่สำเร็จ'; el.appendChild(e); return; } const W = Math.max(1100, el.clientWidth); const band = 36, arrow = 150, top = 110, bottom = 130, plotH = 1100; const H = top + plotH + bottom; const svg = m.svg.attr('width', W).attr('height', H).attr('viewBox', '0 0 ' + W + ' ' + H).style('width', W + 'px').style('height', H + 'px').style('max-width', 'none'); m.zoom.extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]]); const root = svg.append('g').attr('transform', m.t); m.g = root; const water = (dash.colors || [])[2] || 'var(--cds-chart-muted)'; const col = (k) => 'var(--we-' + k + ')'; const fmt = window.wdFmt; const show = (x, y, title, lines) => { const p = (() => { const c = root.node().getScreenCTM(), r = el.getBoundingClientRect(); return c ? [c.a * x + c.c * y + c.e - r.left + el.scrollLeft, c.b * x + c.d * y + c.f - r.top + el.scrollTop] : m.t.apply([x, y]); })(); m.tip.selectAll('*').remove(); m.tip.append('b').text(title); lines.forEach((t) => m.tip.append('div').append('span').text(t)); m.tip.property('hidden', false); const tw = m.tip.node().offsetWidth, th = m.tip.node().offsetHeight; m.tip.style('left', Math.max(0, Math.min(Math.max(el.clientWidth, el.scrollWidth) - tw, p[0] - tw / 2)) + 'px').style('top', Math.max(0, p[1] - th - 12) + 'px'); }; const hide = () => m.tip.property('hidden', true); const x0 = band + arrow, x1 = W - band - arrow; const X = (p) => x0 + Number(p) * (x1 - x0); const Y = (v) => top + Number(v) * plotH; const rowY = {}; Cn.data.forEach((c) => { rowY[c.row] = Y(c.y); }); const wScale = d3.scaleSqrt().domain([0, 40]).range([1.5, 11]).clamp(true); const rScale = (v) => 3 + Math.sqrt(Math.max(0, Math.abs(v))) * 0.95; const step = 14; const short = (s) => { let t = String(s); for (const p of ['ปตร.สน.', 'สน.ปตร.', 'ปตร.', 'สน.']) { if (t.indexOf(p) === 0) { t = t.slice(p.length); break; } } return t.indexOf('คลอง') === 0 ? t.slice(4) : t; }; const boxes = []; const collide = (b) => boxes.some((o) => b.x < o.x + o.width + 2 && b.x + b.width + 2 > o.x && b.y < o.y + o.height && b.y + b.height > o.y) || b.x < 0 || b.x + b.width > W || b.y < 0 || b.y + b.height > H; let labelLayer; const place = (cands, make, keep) => { for (const c of cands) { const t = make(c); const b = t.node().getBBox(); if (!collide(b)) { boxes.push(b); if (c.lead) labelLayer.insert('line', ':first-child').attr('x1', c.lead[0]).attr('y1', c.lead[1]).attr('x2', c.lead[2]).attr('y2', c.lead[3]).attr('class', 'wd-net-lead'); return t; } t.remove(); } for (const c of (keep ? [] : cands)) { const t = make(c).style('font-size', '8px'); const b = t.node().getBBox(); if (!collide(b)) { boxes.push(b); return t; } t.remove(); } const c0 = cands[0]; for (let k = 1; k <= 10; k++) for (const sgn of [1, -1]) { const c = Object.assign({}, c0, { y: c0.y + sgn * k * 11 }); const t = keep ? make(c) : make(c).style('font-size', '8px'); const b = t.node().getBBox(); if (!collide(b)) { boxes.push(b); labelLayer.insert('line', ':first-child').attr('x1', c0.x).attr('y1', c0.y - 3).attr('x2', c.x).attr('y2', c.y - 3).attr('class', 'wd-net-lead'); return t; } t.remove(); } const t = keep ? make(c0) : make(c0).style('font-size', '8px'); boxes.push(t.node().getBBox()); return t; }; const split = Y(0.48); root.append('rect').attr('x', 0).attr('y', 0).attr('width', band).attr('height', H - bottom + 10).attr('rx', 6).style('fill', col('cp')).style('opacity', 0.18); root.append('rect').attr('x', W - band).attr('y', 0).attr('width', band).attr('height', split - 2).attr('rx', 6).style('fill', col('nk')).style('opacity', 0.18); root.append('rect').attr('x', W - band).attr('y', split + 2).attr('width', band).attr('height', H - bottom + 10 - split).attr('rx', 6).style('fill', col('bp')).style('opacity', 0.18); root.append('rect').attr('x', 0).attr('y', H - bottom + 60).attr('width', W).attr('height', bottom - 60).attr('rx', 6).style('fill', col('gulf')).style('opacity', 0.16); const rl = (x, y, rot, t) => root.append('text').attr('class', 'wd-net-river').attr('transform', 'translate(' + x + ',' + y + ') rotate(' + rot + ')').attr('text-anchor', 'middle').text(t); rl(band / 2 + 5, (H - bottom) / 2, -90, 'แม่น้ำเจ้าพระยา'); rl(W - band / 2 - 5, split / 2, 90, 'แม่น้ำนครนายก'); rl(W - band / 2 - 5, (split + H - bottom) / 2, 90, 'แม่น้ำบางปะกง'); const gulf = root.append('text').attr('class', 'wd-net-river').attr('x', W / 2).attr('y', H - 22).attr('text-anchor', 'middle').text('อ่าวไทย'); boxes.push(gulf.node().getBBox(), { x: 0, y: (H - bottom) / 2 - 70, width: band, height: 140 }, { x: W - band, y: split / 2 - 60, width: band, height: 120 }, { x: W - band, y: (split + H - bottom) / 2 - 60, width: band, height: 120 }); const linkLayer = root.append('g'), canalLayer = root.append('g'), stLayer = root.append('g').attr('class', 'sch-flow'), gateLayer = root.append('g'); labelLayer = root.append('g').attr('class', 'sch-labels'); L.data.forEach((l) => { const ax = X(l.x1), ay = Y(l.y1), bx = X(l.x2), by = Y(l.y2); linkLayer.append('line').attr('x1', ax).attr('y1', ay).attr('x2', bx).attr('y2', by).style('stroke', water).style('stroke-width', 2.5).style('opacity', 0.6).style('stroke-linecap', 'round'); linkLayer.append('line').attr('x1', ax).attr('y1', ay).attr('x2', bx).attr('y2', by).style('stroke', 'transparent').style('stroke-width', 12).style('cursor', 'pointer') .on('pointerenter click', (ev) => { const p = d3.pointer(ev, root.node()); show(p[0], p[1], l.name, ['คลองเชื่อม']); }).on('pointerleave', hide); }); const canals = Cn.data.slice().sort((a, b) => a.order - b.order); canals.forEach((c) => { const y = rowY[c.row], xs = c.x_start > 0 ? X(c.x_start) : x0, xe = c.x_end >= 1 ? x1 : X(c.x_end); canalLayer.append('line').attr('class', 'sch-canal').attr('data-canal', c.main).attr('x1', xs).attr('y1', y).attr('x2', xe).attr('y2', y).style('stroke', water).style('stroke-width', 5).style('stroke-linecap', 'round'); const nm = labelLayer.append('text').attr('class', 'wd-net-name').attr('x', xs + (c.x_start > 0 ? 8 : 2)).attr('y', y - 22).text(c.main) .on('click', () => { const t = document.getElementById('we-canal-' + c.order); if (t) { const d = t.querySelector('details'); if (d) d.open = true; t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); boxes.push(nm.node().getBBox()); }); I.data.forEach((x) => { const c = canals.find((k) => k.main === x.main); if (!c) return; const y = rowY[c.row]; for (const dy of [-44, -68, 44]) { for (const f of [0, 0.05, -0.05, 0.1, -0.1]) { const cx = X((x.pos || 0.5) + f), cy = y + dy; const g = labelLayer.append('g').attr('class', 'wd-net-badge is-in').style('cursor', 'pointer'); const rect = g.append('rect').attr('rx', 7); const t = g.append('text').attr('x', cx).attr('y', cy + 5).attr('text-anchor', 'middle'); t.append('tspan').text('↓ '); t.append('tspan').attr('class', 'v').attr('data-source', 'e_inflows').attr('data-field', 'value').attr('data-where', 'id=' + x.id).text(fmt(x.value, 2)); t.append('tspan').attr('class', 'w').text(' รับเข้า'); const tb = t.node().getBBox(); const b = { x: tb.x - 8, y: tb.y - 4, width: tb.width + 16, height: tb.height + 8 }; if (collide(b)) { g.remove(); continue; } rect.attr('x', b.x).attr('y', b.y).attr('width', b.width).attr('height', b.height); boxes.push(b); const edgeY = dy < 0 ? b.y + b.height : b.y, s = Math.sign(y - edgeY); labelLayer.insert('path', ':first-child').attr('d', 'M' + cx + ',' + y + ' L' + (cx - 6) + ',' + (y - s * 10) + ' L' + (cx + 6) + ',' + (y - s * 10) + 'Z').style('fill', 'var(--color-ok)'); labelLayer.insert('line', ':first-child').attr('x1', cx).attr('y1', edgeY).attr('x2', cx).attr('y2', y - s * 8).style('stroke', 'var(--color-ok)').style('stroke-width', 3); g.on('pointerenter click', () => show(cx, b.y, x.name, [fmt(x.value, 2) + ' ลบ.ม./วินาที' + (x.cap ? ' จากสูงสุด ' + fmt(x.cap) : '')])).on('pointerleave', hide); return; } } }); const stLabels = []; S.data.forEach((s) => { const v = s.cms, has = v != null, active = has && v !== 0, c = col(s.river); const sw = active ? wScale(Math.abs(v)) : 1.5, g = stLayer.append('g').attr('data-st', s.id).style('cursor', 'pointer'); const stroke = active ? c : 'var(--cds-chart-axis)', dash_ = active ? null : '3 3'; let ax, ay, lx, ly, lyb, anchor, hit; if (s.dir === 'down') { ax = X(s.x); ay = Y(s.y); const by = H - bottom + 56; g.append('line').attr('x1', ax).attr('y1', ay).attr('x2', ax).attr('y2', by - 8).style('stroke', stroke).style('stroke-width', sw).style('stroke-dasharray', dash_); g.append('path').attr('d', 'M' + ax + ',' + by + ' l-5,-9 l10,0Z').style('fill', stroke); g.append('circle').attr('cx', ax).attr('cy', ay + 14).attr('r', 6).style('fill', 'var(--color-bg)').style('stroke', stroke); g.append('text').attr('class', 'wd-net-p').attr('x', ax).attr('y', ay + 17.5).attr('text-anchor', 'middle').text('P'); boxes.push({ x: ax - 6, y: ay + 8, width: 12, height: 12 }); lx = ax; ly = by - 20; lyb = by - 34; anchor = 'middle'; hit = [ax - 10, ay, 20, by - ay]; } else { const y = Y(s.y), left = s.edge === 'left'; const from = left ? (s.stub ? X(s.stub) : x0) : x1; const tipX = left ? band : W - band, dir = left ? -1 : 1, head = 7 + sw * 0.6; const rev = active && v < 0; if (left && s.stub && from > x0) canalLayer.append('line').attr('x1', x0).attr('y1', y).attr('x2', from).attr('y2', y).style('stroke', water).style('stroke-width', 3).style('opacity', 0.8); g.append('line').attr('x1', left ? x0 : x1).attr('y1', y).attr('x2', rev ? (left ? x0 : x1) : tipX - dir * head).attr('y2', y).style('stroke', stroke).style('stroke-width', sw).style('stroke-dasharray', dash_); if (rev) { g.append('line').attr('x1', tipX).attr('y1', y).attr('x2', (left ? x0 : x1) + dir * head).attr('y2', y).style('stroke', stroke).style('stroke-width', sw); const hx = left ? x0 : x1; g.append('path').attr('d', 'M' + hx + ',' + y + ' L' + (hx + dir * head) + ',' + (y - sw / 2 - 4) + ' L' + (hx + dir * head) + ',' + (y + sw / 2 + 4) + 'Z').style('fill', stroke); } else { g.append('path').attr('d', 'M' + tipX + ',' + y + ' L' + (tipX - dir * head) + ',' + (y - sw / 2 - 4) + ' L' + (tipX - dir * head) + ',' + (y + sw / 2 + 4) + 'Z').style('fill', stroke); } const px = tipX - dir * (head + 9); g.append('circle').attr('cx', px).attr('cy', y).attr('r', 6).style('fill', 'var(--color-bg)').style('stroke', stroke).style('stroke-width', 1.2); g.append('text').attr('class', 'wd-net-p').attr('x', px).attr('y', y + 3.5).attr('text-anchor', 'middle').text('P'); boxes.push({ x: px - 6, y: y - 6, width: 12, height: 12 }); lx = left ? band + 3 : W - band - 3; ly = y - Math.max(sw / 2, 6) - 4; lyb = y + Math.max(sw / 2, 6) + 12; anchor = left ? 'start' : 'end'; ax = left ? (band + x0) / 2 : (x1 + W - band) / 2; ay = y; hit = [left ? band : x1, y - 8, left ? x0 - band : W - band - x1, 16]; } g.append('rect').attr('x', hit[0]).attr('y', hit[1]).attr('width', Math.max(20, hit[2])).attr('height', Math.max(10, hit[3])).style('fill', 'transparent') .on('pointerenter click', () => show(ax, ay, s.name, [s.canal + ' → ' + s.river_name, has ? fmt(v) + ' ลบ.ม./วินาที' + (v < 0 ? ' (ติดลบ = รับน้ำเข้าพื้นที่)' : '') + (s.cap ? ' · ศักยภาพ ' + fmt(s.cap) : '') : (s.note || 'n/a')])).on('pointerleave', hide); stLabels.push({ s, lx, ly, lyb, anchor, has, v, c: active ? c : 'var(--cds-text-secondary)' }); }); stLabels.sort((a, b) => Math.abs(b.v || 0) - Math.abs(a.v || 0)).forEach((d) => { const cands = d.s.dir === 'down' ? [{ x: d.lx, y: d.ly }, { x: d.lx, y: d.lyb }, { x: d.lx, y: d.ly + 14 }] : [{ x: d.lx, y: d.ly }, { x: d.lx, y: d.lyb }, { x: d.lx, y: d.ly - 12 }, { x: d.lx, y: d.lyb + 12 }]; place(cands, (c) => { const t = labelLayer.append('text').attr('class', 'wd-net-flow').attr('x', c.x).attr('y', c.y).attr('text-anchor', d.anchor).style('fill', d.c); if (d.s.dir === 'down') { if (d.has) t.append('tspan').attr('data-source', 'e_stations').attr('data-field', 'cms').attr('data-where', 'id=' + d.s.id).text(fmt(d.v)); else t.append('tspan').text('n/a'); t.append('tspan').attr('class', 'wd-net-sn').attr('x', c.x).attr('dy', 12).text(short(d.s.name)); } else { if (d.has) t.append('tspan').attr('data-source', 'e_stations').attr('data-field', 'cms').attr('data-where', 'id=' + d.s.id).text(fmt(d.v)); else t.append('tspan').text('n/a'); t.append('tspan').attr('class', 'wd-net-sn').text(' ' + short(d.s.name)); } return t; }, true); }); const gates = G.data.filter((g) => rowY[g.row] != null).map((g) => ({ g, x: X(g.pos), y: rowY[g.row] + Number(g.dy || 0) * step })); gates.forEach(({ g, x, y }) => { const has = g.value != null, r = has ? rScale(g.value) : 3.2, over = has && g.cap && !g.cap_each && g.value > g.cap; const node = gateLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', r); node.style('fill', over ? 'var(--color-bad)' : (has ? 'var(--color-fg)' : 'var(--color-bg)')).style('stroke', over ? 'var(--color-bad)' : 'var(--color-fg)').style('stroke-width', 1.2); boxes.push({ x: x - r, y: y - r, width: r * 2, height: r * 2 }); gateLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', 10).style('fill', 'transparent').style('cursor', 'pointer') .on('pointerenter click', () => show(x, y - r, g.name, [g.canal, has ? fmt(g.value, 2) + ' ลบ.ม./วินาที' + (g.cap ? (g.cap_each ? ' (รวมหลายประตู ค่าสูงสุดประตูละ ' + fmt(g.cap) + ')' : ' จากสูงสุด ' + fmt(g.cap) + (over ? ' (เกินค่าสูงสุด)' : '')) : '') : (g.note || 'ไม่มีข้อมูล')])).on('pointerleave', hide); }); const ordered = gates.slice().sort((a, b) => Math.abs(b.g.value ?? -1) - Math.abs(a.g.value ?? -1)); ordered.filter((d) => d.g.value != null && d.g.value !== 0).forEach(({ g, x, y }) => { const r = rScale(g.value), below = Number(g.dy || 0) >= 0; const t = labelLayer.append('text').attr('class', 'wd-net-gv').attr('x', x).attr('y', below ? y + r + 11 : y - r - 4).attr('text-anchor', 'middle') .attr('data-source', 'e_gates').attr('data-field', 'value').attr('data-where', 'id=' + g.id).text(fmt(g.value, 2)); const b = t.node().getBBox(); if (collide(b)) t.remove(); else boxes.push(b); }); ordered.forEach(({ g, x, y }) => { const r = g.value != null ? rScale(g.value) : 3.2; const label = short(g.name) + (g.value == null && g.note && g.note !== 'ไม่มีข้อมูลในไฟล์' && g.note !== 'ไม่มีข้อมูล' ? ' (' + g.note + ')' : ''); place([ { x: x + r + 3, y: y + 4, a: 'start' }, { x: x - r - 3, y: y + 4, a: 'end' }, { x: x, y: y + r + 23, a: 'middle' }, { x: x, y: y - r - 15, a: 'middle' }, { x: x + r + 3, y: y - 8, a: 'start' }, { x: x - r - 3, y: y - 8, a: 'end' }, { x: x + r + 3, y: y + 16, a: 'start' }, { x: x - r - 3, y: y + 16, a: 'end' }, { x: x, y: y + r + 36, a: 'middle', lead: [x, y + r, x, y + r + 26] }, { x: x, y: y - r - 28, a: 'middle', lead: [x, y - r, x, y - r - 25] } ], (c) => labelLayer.append('text').attr('class', 'wd-net-gn').attr('x', c.x).attr('y', c.y).attr('text-anchor', c.a).text(label)); }); L.data.forEach((l) => { const ax = X(l.x1), ay = Y(l.y1), bx = X(l.x2), by = Y(l.y2); const mx = (ax + bx) / 2, my = (ay + by) / 2, len = Math.hypot(bx - ax, by - ay); if (Math.abs(bx - ax) < Math.abs(by - ay) * 0.5) { for (const f of [0.5, 0.3, 0.7, 0.4, 0.6]) for (const side of [-5, 13]) { const cy = ay + (by - ay) * f, cx = ax + (bx - ax) * f + side; const t = labelLayer.append('text').attr('class', 'wd-net-ln').attr('text-anchor', 'middle').attr('transform', 'translate(' + cx + ',' + cy + ') rotate(-90)').text(l.name); const w = t.node().getComputedTextLength(); const b = { x: cx - 14, y: cy - w / 2 - 2, width: 20, height: w + 4 }; if (w < len - 16 && !collide(b)) { boxes.push(b); return; } t.remove(); } } place([{ x: mx + 6, y: my + 4, a: 'start' }, { x: mx - 6, y: my + 4, a: 'end' }, { x: mx + 6, y: my - 8, a: 'start' }, { x: mx - 6, y: my - 8, a: 'end' }, { x: mx + 6, y: my + 16, a: 'start' }, { x: mx - 6, y: my + 16, a: 'end' }], (c) => labelLayer.append('text').attr('class', 'wd-net-ln').attr('x', c.x).attr('y', c.y).attr('text-anchor', c.a).text(l.name)); }); if (window.WDSchematic) window.WDSchematic.run('east', { svg: m.svg.node(), root, X, Y, rowY, W, H, canals: Cn.data, links: L.data, gates: G.data, stations: S.data, inflows: I.data, gatePos: gates, show, hide }); } }); (function(){ const setSide = (side, scroll) => { window.wdState.side = side; document.querySelectorAll('[data-side-panel]').forEach((p) => { p.hidden = p.getAttribute('data-side-panel') !== side; }); document.querySelectorAll('[data-side-btn]').forEach((b) => { const on = b.getAttribute('data-side-btn') === side; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }); dash.setLink(side === 'east' ? 'east' : 'west'); if (scroll) { const t = document.getElementById('topbar'); if (t) t.scrollIntoView({ block: 'start' }); } }; document.querySelectorAll('[data-side-btn]').forEach((b) => b.addEventListener('click', () => setSide(b.getAttribute('data-side-btn'), false))); const h = (location.hash || '').slice(1); if (h === 'east' || h.indexOf('e-') === 0) setSide('east', false); document.querySelectorAll('.wd-esearch').forEach((inp) => { inp.value = window.wdState.eq || ''; inp.addEventListener('input', () => { window.wdState.eq = inp.value; dash.draw('eresults'); dash.draw('ecanals'); }); }); document.querySelectorAll('[data-erange]').forEach((b) => b.addEventListener('click', () => { const v = b.getAttribute('data-erange'); window.wdState.erange = v === 'all' ? 'all' : Number(v); document.querySelectorAll('[data-erange]').forEach((o) => o.classList.toggle('is-on', o === b)); dash.draw('etrend'); })); document.querySelectorAll('[data-ego]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const id = a.getAttribute('data-ego'), t = document.getElementById(id); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); dash.setLink(id); if (id === 'e-search') { const i = document.querySelector('.wd-esearch'); if (i) i.focus({ preventScroll: true }); } })); })();
+</script>
+<script>
+// ฝั่งตะวันออก: ลูกศรเทียบ 1 วัน/7 วัน, เปรียบเทียบวันที่ต้องการ, เทียบช่วงเดียวกันของปีก่อน
+(function () {
+ function make(P, DS, METRICS, LAB) {
+  const fmt = (v, d) => window.wdFmt(v, d == null ? 2 : d);
+  const thai = (s) => (window.wdThaiDate ? window.wdThaiDate(s) : s);
+  const num = (v) => (typeof v === 'number' && isFinite(v) ? v : null);
+  const st = (window.wdState[P + 'cmp'] = window.wdState[P + 'cmp'] || { mode: 'd7', date: '', win: 30 });
+
+  // วันที่แบบ YYYY-MM-DD
+  const toD = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const toS = (t) => t.toISOString().slice(0, 10);
+  const addDays = (s, n) => toS(new Date(toD(s).getTime() + n * 864e5));
+  const lastYear = (s) => { const [y, m, d] = s.split('-').map(Number); const t = new Date(Date.UTC(y - 1, m - 1, d)); if (t.getUTCMonth() !== m - 1) t.setUTCDate(0); return toS(t); };
+  const shortDate = (s) => { const t = toD(s); return t.getUTCDate() + ' ' + ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'][t.getUTCMonth()] + ' ' + String((t.getUTCFullYear() + 543) % 100).padStart(2, '0'); };
+
+  function ctx() {
+    const D = dash.data(DS); if (D.status !== 'ok') return null;
+    const rows = D.data, idx = new Map(rows.map((r, i) => [r.date, i]));
+    const cur = window.wdPick(rows, dash.params().date); if (!cur) return null;
+    return { rows, idx, cur, at: (s) => (idx.has(s) ? rows[idx.get(s)] : null) };
+  }
+
+
+  // ผลต่าง พร้อมลูกศร
+  function delta(a, b, dec) {
+    a = num(a); b = num(b);
+    if (a == null || b == null) return { txt: '—', cls: 'is-na', pct: '' };
+    const d = a - b, eps = Math.pow(10, -(dec == null ? 2 : dec)) / 2;
+    const arrow = Math.abs(d) < eps ? '→' : d > 0 ? '▲' : '▼';
+    const pct = Math.abs(b) >= 0.05 ? (d / Math.abs(b) * 100) : null;
+    return { arrow, d, txt: arrow + ' ' + (d > 0 ? '+' : d < 0 ? '−' : '') + fmt(Math.abs(d), dec), cls: Math.abs(d) < eps ? 'is-flat' : d > 0 ? 'is-up' : 'is-down',
+      pct: pct == null ? '' : (pct > 0 ? '+' : pct < 0 ? '−' : '') + fmt(Math.abs(pct), 0) + '%' };
+  }
+
+  // 1) ลูกศรในการ์ดตัวเลขสรุป
+  dash.draw(P + 'delta', (el) => {
+    const c = ctx(); if (!c) return;
+    const k = el.getAttribute('data-k'), i = c.idx.get(c.cur.date);
+    const prev = i > 0 ? c.rows[i - 1] : null, wk = c.at(addDays(c.cur.date, -7));
+    el.replaceChildren();
+    [['เมื่อวาน', prev]].forEach(([lab, r]) => {
+      const x = delta(c.cur[k], r && r[k]);
+      const s = document.createElement('span'); s.className = 'wd-dl ' + x.cls;
+      s.title = r ? lab + ' (' + thai(r.date) + ') ' + fmt(r[k]) : 'ไม่มีข้อมูล' + lab;
+      s.textContent = x.txt; const sm = document.createElement('small'); sm.textContent = ' ' + lab; s.appendChild(sm);
+      el.appendChild(s);
+    });
+  });
+
+  // 2) เปรียบเทียบกับวันที่ต้องการ
+  function cmpDate(c) {
+    const d = c.cur.date;
+    if (st.mode === 'd1') { const i = c.idx.get(d); return i > 0 ? c.rows[i - 1].date : null; }
+    if (st.mode === 'd7') return addDays(d, -7);
+    if (st.mode === 'd30') return addDays(d, -30);
+    if (st.mode === 'y1') return lastYear(d);
+    return st.date || addDays(d, -7);
+  }
+  dash.draw(P + 'cmp', (el) => {
+    const c = ctx(); if (!c) return;
+    const want = cmpDate(c);
+    let ref = want ? c.at(want) : null, note = '';
+    if (want && !ref) { const p = window.wdPick(c.rows, want); if (p && p.date < want && p.date >= c.rows[0].date && want >= c.rows[0].date) { ref = p; note = 'ไม่มีข้อมูลวันที่ ' + thai(want) + ' ใช้วันก่อนหน้าที่มีข้อมูลแทน'; } }
+    if (want && want < c.rows[0].date) note = 'ไฟล์มีข้อมูลตั้งแต่ ' + thai(c.rows[0].date) + ' เท่านั้น';
+    const inp = document.querySelector('[data-' + P + 'cmp-date]');
+    if (inp) { inp.min = c.rows[0].date; inp.max = c.rows[c.rows.length - 1].date; if (ref) inp.value = ref.date; }
+    document.querySelectorAll('[data-' + P + 'cmp-mode]').forEach((b) => b.classList.toggle('is-on', b.getAttribute('data-' + P + 'cmp-mode') === st.mode));
+    el.replaceChildren();
+    const head = document.createElement('p'); head.className = 'wd-cmp-head';
+    head.innerHTML = '';
+    const b1 = document.createElement('b'); b1.textContent = thai(c.cur.date);
+    const b2 = document.createElement('b'); b2.textContent = ref ? thai(ref.date) : '—';
+    head.append('วันที่เลือก ', b1, ' เทียบกับ ', b2);
+    el.appendChild(head);
+    if (note) { const n = document.createElement('p'); n.className = 'wd-cmp-note'; n.textContent = note; el.appendChild(n); }
+    const tbl = document.createElement('table'); tbl.className = 'wd-cmp-tbl';
+    tbl.innerHTML = '<thead><tr><th>ปลายทาง</th><th>' + shortDate(c.cur.date) + '</th><th>' + (ref ? shortDate(ref.date) : '—') + '</th><th>ผลต่าง</th><th>%</th></tr></thead>';
+    const tb = document.createElement('tbody');
+    METRICS.forEach(([k, lab, unit, dec]) => {
+      const a = c.cur[k], b = ref ? ref[k] : null; if (num(a) == null && num(b) == null) return;
+      const x = delta(a, b, dec), tr = document.createElement('tr');
+      const td = (t, cls) => { const e = document.createElement('td'); e.textContent = t; if (cls) e.className = cls; tr.appendChild(e); };
+      const th = document.createElement('th'); th.scope = 'row'; th.textContent = lab; const u = document.createElement('small'); u.textContent = ' ' + unit; th.appendChild(u); tr.appendChild(th);
+      td(fmt(a, dec)); td(fmt(b, dec)); td(x.txt, 'wd-dl ' + x.cls); td(x.pct, 'wd-pct');
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb); el.appendChild(tbl);
+
+  });
+
+  // 3) ช่วงเดียวกันของปีก่อน
+  const avg = (rows, k) => { const v = rows.map((r) => num(r[k])).filter((x) => x != null); return v.length ? { m: v.reduce((a, b) => a + b, 0) / v.length, n: v.length } : null; };
+  dash.draw(P + 'yoy', {
+    mount: (el) => {
+      const tip = d3.select(el.parentElement).append('div').attr('class', 'wd-tip').property('hidden', true);
+      return { tip };
+    },
+    update: (el, m) => {
+      const c = ctx(); if (!c) return;
+      document.querySelectorAll('[data-' + P + 'yoy-win]').forEach((b) => b.classList.toggle('is-on', Number(b.getAttribute('data-' + P + 'yoy-win')) === st.win));
+      const N = st.win, end = c.cur.date, start = addDays(end, -(N - 1));
+      const lyEnd = lastYear(end), lyStart = addDays(lyEnd, -(N - 1));
+      const inR = (a, b) => c.rows.filter((r) => r.date >= a && r.date <= b);
+      const A = inR(start, end), B = inR(lyStart, lyEnd);
+      el.replaceChildren();
+      const head = document.createElement('p'); head.className = 'wd-cmp-head';
+      head.textContent = 'เฉลี่ยต่อวัน ' + N + ' วัน: ' + shortDate(start) + ' – ' + shortDate(end) + ' เทียบกับ ' + shortDate(lyStart) + ' – ' + shortDate(lyEnd);
+      el.appendChild(head);
+      if (!B.length) { const p = document.createElement('p'); p.className = 'wd-cmp-note'; p.textContent = 'ไม่มีข้อมูลช่วงเดียวกันของปีก่อนในไฟล์ (ข้อมูลเริ่ม ' + thai(c.rows[0].date) + ')'; el.appendChild(p); return; }
+      const tbl = document.createElement('table'); tbl.className = 'wd-cmp-tbl';
+      tbl.innerHTML = '<thead><tr><th>ปลายทาง</th><th>ปีนี้</th><th>ปีก่อน</th><th>ผลต่าง</th><th>%</th></tr></thead>';
+      const tb = document.createElement('tbody');
+      METRICS.forEach(([k, lab, unit, dec]) => {
+        const a = avg(A, k), b = avg(B, k); if (!a && !b) return;
+        const x = delta(a && a.m, b && b.m, dec), tr = document.createElement('tr');
+        const th = document.createElement('th'); th.scope = 'row'; th.textContent = lab; const u = document.createElement('small'); u.textContent = ' ' + unit; th.appendChild(u); tr.appendChild(th);
+        [[fmt(a && a.m, dec)], [fmt(b && b.m, dec)], [x.txt, 'wd-dl ' + x.cls], [x.pct, 'wd-pct']].forEach(([t, cls]) => { const e = document.createElement('td'); e.textContent = t; if (cls) e.className = cls; tr.appendChild(e); });
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb); el.appendChild(tbl);
+      if (B.length < N * 0.8) { const p = document.createElement('p'); p.className = 'wd-cmp-note'; p.textContent = 'ปีก่อนมีข้อมูล ' + B.length + ' จาก ' + N + ' วัน'; el.appendChild(p); }
+
+      // กราฟเส้น ระบายรวมรายวัน ปีนี้ vs ปีก่อน
+      const W = Math.max(280, el.clientWidth), H = 200, mg = { t: 14, r: 12, b: 26, l: 40 };
+      if (!st.riv) { let best = null; METRICS.forEach((mm) => { const a = avg(A, mm[0]); if (a && (!best || Math.abs(a.m) > best.v)) best = { k: mm[0], v: Math.abs(a.m) }; }); st.rivAuto = best ? best.k : METRICS[0][0]; }
+      const RV = METRICS.find((mm) => mm[0] === (st.riv || st.rivAuto)) || METRICS[0], RK = RV[0];
+      const pick = document.createElement('div'); pick.className = 'wd-cmp-ctl wd-yoy-riv'; pick.setAttribute('role', 'group'); pick.setAttribute('aria-label', 'เลือกปลายทางในกราฟ');
+      METRICS.forEach((mm) => { const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = mm[1].replace('แม่น้ำ', ''); bt.className = mm === RV ? 'is-on' : ''; bt.addEventListener('click', () => { st.riv = mm[0]; dash.draw(P + 'yoy'); }); pick.appendChild(bt); });
+      el.appendChild(pick);
+      const ser = (rows, s0) => rows.map((r) => ({ i: Math.round((toD(r.date) - toD(s0)) / 864e5), v: num(r[RK]), date: r.date })).filter((p) => p.v != null);
+      const sa = ser(A, start), sb = ser(B, lyStart);
+      const ys = sa.concat(sb).map((p) => p.v);
+      const x = d3.scaleLinear().domain([0, N - 1]).range([mg.l, W - mg.r]);
+      const y = d3.scaleLinear().domain([Math.min(0, d3.min(ys)), d3.max(ys) || 1]).nice().range([H - mg.b, mg.t]);
+      const svg = d3.select(el).append('svg').attr('class', 'wd-yoy-svg').attr('width', W).attr('height', H).attr('viewBox', '0 0 ' + W + ' ' + H)
+        .attr('role', 'img').attr('aria-label', 'ระบายลง' + RV[1] + ' ' + N + ' วันล่าสุด เทียบกับช่วงเดียวกันของปีก่อน');
+      svg.append('g').attr('transform', 'translate(0,' + (H - mg.b) + ')').call(d3.axisBottom(x).ticks(Math.min(6, N)).tickFormat((i) => shortDate(addDays(start, i)).replace(/ \d\d$/, ''))).call((g) => g.select('.domain').remove());
+      svg.append('g').attr('transform', 'translate(' + mg.l + ',0)').call(d3.axisLeft(y).ticks(4).tickSize(-(W - mg.l - mg.r))).call((g) => { g.select('.domain').remove(); g.selectAll('line').style('stroke', 'var(--cds-chart-grid)'); });
+      svg.selectAll('.tick text').style('fill', 'var(--cds-text-secondary)').style('font-size', '11px');
+      const line = d3.line().x((p) => x(p.i)).y((p) => y(p.v)).defined((p) => p.v != null);
+      svg.append('path').datum(sb).attr('d', line).style('fill', 'none').style('stroke', 'var(--cds-chart-axis)').style('stroke-width', 2).style('stroke-dasharray', '5 4');
+      svg.append('path').datum(sa).attr('d', line).style('fill', 'none').style('stroke', RV[4]).style('stroke-width', 2.5);
+      const lg = document.createElement('div'); lg.className = 'wd-legend';
+      lg.innerHTML = '<span><i style="background:' + RV[4] + '"></i>ปีนี้</span><span><i class="is-dash"></i>ปีก่อน (ช่วงเดียวกัน)</span><span class="wd-yoy-u">ลง' + RV[1] + ' ล้าน ลบ.ม./วัน</span>';
+      el.insertBefore(lg, el.querySelector('svg'));
+      // ชี้ดูค่า
+      const guide = svg.append('line').attr('y1', mg.t).attr('y2', H - mg.b).style('stroke', 'var(--cds-chart-reference)').style('opacity', 0);
+      svg.append('rect').attr('x', mg.l).attr('y', mg.t).attr('width', W - mg.l - mg.r).attr('height', H - mg.t - mg.b).style('fill', 'transparent')
+        .on('pointermove click', (ev) => {
+          const i = Math.max(0, Math.min(N - 1, Math.round(x.invert(d3.pointer(ev)[0]))));
+          const a = sa.find((p) => p.i === i), b = sb.find((p) => p.i === i);
+          guide.attr('x1', x(i)).attr('x2', x(i)).style('opacity', 1);
+          m.tip.selectAll('*').remove();
+          m.tip.append('b').text(shortDate(addDays(start, i)));
+          m.tip.append('div').append('span').text('ปีนี้ ' + (a ? fmt(a.v) : '—'));
+          m.tip.append('div').append('span').text('ปีก่อน (' + shortDate(addDays(lyStart, i)) + ') ' + (b ? fmt(b.v) : '—'));
+          m.tip.property('hidden', false);
+          const tw = m.tip.node().offsetWidth, sv = svg.node();
+          m.tip.style('left', Math.max(0, Math.min(el.clientWidth - tw, sv.offsetLeft + x(i) - tw / 2)) + 'px').style('top', Math.max(0, sv.offsetTop - 8) + 'px');
+        })
+        .on('pointerleave', () => { guide.style('opacity', 0); m.tip.property('hidden', true); });
+    }
+  });
+
+  // ปุ่มและช่องเลือก
+  document.querySelectorAll('[data-' + P + 'cmp-mode]').forEach((b) => b.addEventListener('click', () => { st.mode = b.getAttribute('data-' + P + 'cmp-mode'); dash.draw(P + 'cmp'); }));
+  document.querySelectorAll('[data-' + P + 'cmp-date]').forEach((i) => i.addEventListener('change', () => { if (i.value) { st.mode = 'custom'; st.date = i.value; dash.draw(P + 'cmp'); } }));
+  document.querySelectorAll('[data-' + P + 'yoy-win]').forEach((b) => b.addEventListener('click', () => { st.win = Number(b.getAttribute('data-' + P + 'yoy-win')); dash.draw(P + 'yoy'); }));
+ }
+ // [คีย์ในข้อมูล, ชื่อ, หน่วย, ทศนิยม, สี]
+ make('e', 'e_daily', [
+   ['s_daily_nk', 'แม่น้ำนครนายก', 'ล้าน ลบ.ม.', 2, 'var(--we-nk)'],
+   ['s_daily_cp', 'แม่น้ำเจ้าพระยา', 'ล้าน ลบ.ม.', 2, 'var(--we-cp)'],
+   ['s_daily_bp', 'แม่น้ำบางปะกง', 'ล้าน ลบ.ม.', 2, 'var(--we-bp)'],
+   ['s_daily_gulf', 'อ่าวไทย', 'ล้าน ลบ.ม.', 2, 'var(--we-gulf)']
+ ]);
+ make('w', 'daily', [
+   ['s_daily_tc', 'แม่น้ำท่าจีน', 'ล้าน ลบ.ม.', 2, 'var(--wd-tc)'],
+   ['s_daily_cp', 'แม่น้ำเจ้าพระยา', 'ล้าน ลบ.ม.', 2, 'var(--wd-cp)']
+ ]);
+})();
+
 </script>
 <script>
 // แผนผังการระบายน้ำฝั่งตะวันตก ตามชีต "ผัง (แล้ง)" ในไฟล์ Excel
